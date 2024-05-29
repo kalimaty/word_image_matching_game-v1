@@ -27,6 +27,13 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // widget.allQuestions.shuffle();
+  }
+
+  @override
   Widget build(BuildContext context) {
     List<String> imageOptions =
         widget.allQuestions.map((q) => q.imagePath).toList();
@@ -55,8 +62,19 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Select the correct image'),
+          backgroundColor: Color.fromARGB(255, 50, 215, 250),
+          title: Text(
+            textAlign: TextAlign.center,
+            'Select the correct image',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
           content: Container(
+            decoration: BoxDecoration(
+                color: Colors.amber.shade50,
+                border: Border.all(width: 6, color: Colors.grey.shade300),
+                borderRadius: BorderRadius.circular(10)),
             width: double.maxFinite,
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -66,8 +84,20 @@ class _QuestionWidgetState extends State<QuestionWidget> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
+                    //   if (imageOptions[index] == widget.question.imagePath) {
+                    //   _color = Colors.green;
+
+                    // } else {
+                    //   _color = Colors.red;
+
+                    // }
                     _handleSelection(imageOptions[index]);
                     Navigator.of(context).pop(); // Close the dialog
+                    // Future.delayed(Duration(seconds: 1), () {
+                    //   if (mounted) {
+                    //     Navigator.of(context).pop(); // Close the dialog
+                    //   }
+                    // });
                   },
                   child: Image.asset(imageOptions[index]),
                 );

@@ -4,11 +4,18 @@ import '../models/game_state.dart';
 import '../models/question.dart';
 import '../widgets/question_widget.dart';
 
-class QuestionScreen extends StatelessWidget {
+class QuestionScreen extends StatefulWidget {
   final List<Question> questions;
 
-  QuestionScreen({required this.questions});
+  QuestionScreen({required this.questions}) {
+    questions.shuffle(); // Shuffle the questions list
+  }
 
+  @override
+  State<QuestionScreen> createState() => _QuestionScreenState();
+}
+
+class _QuestionScreenState extends State<QuestionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,11 +42,11 @@ class QuestionScreen extends StatelessWidget {
             child: Consumer<GameState>(
               builder: (context, gameState, child) {
                 return ListView.builder(
-                  itemCount: questions.length,
+                  itemCount: widget.questions.length,
                   itemBuilder: (context, index) {
                     return QuestionWidget(
-                      question: questions[index],
-                      allQuestions: questions,
+                      question: widget.questions[index],
+                      allQuestions: widget.questions,
                     );
                   },
                 );
